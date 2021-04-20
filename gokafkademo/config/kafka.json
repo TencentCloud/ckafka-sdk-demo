@@ -1,0 +1,14 @@
+{
+    "topic": [
+        "test"
+    ],
+    "sasl": {
+        "username": "yourUsername",
+        "password": "yourPassword",
+        "instanceId":"yourInstanceId"
+    },
+    "bootstrapServers": [
+        "xxxx.ap-changsha-ec.ckafka.tencentcloudmq.com:6000"
+    ],
+    "consumerGroupId": "goClientConsumerGrp"
+}
