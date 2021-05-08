@@ -1,0 +1,11 @@
+{
+  "name": "ckafka-nodejs-demo",
+  "version": "1.0.0",
+  "description": "ckafka nodejs demo for sasl",
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "node-rdkafka": "^1.0.6",
+    "co": "*"
+  }
+}

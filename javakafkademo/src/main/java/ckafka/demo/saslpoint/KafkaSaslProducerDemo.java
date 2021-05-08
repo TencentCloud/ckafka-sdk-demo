@@ -1,10 +1,11 @@
 package ckafka.demo.saslpoint;
 
-import com.example.demo.ckafka.CKafkaConfigurer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
+
+import ckafka.demo.CKafkaConfigurer;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
