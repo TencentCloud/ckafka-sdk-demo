@@ -3,6 +3,8 @@ package ckafka.demo.defaultpoint;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import ckafka.demo.CKafkaConfigurer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;

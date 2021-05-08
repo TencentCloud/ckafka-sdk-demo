@@ -1,5 +1,7 @@
 package ckafka.demo;
 
+import ckafka.demo.defaultpoint.CKafkaProducerDemo;
+
 import java.util.Properties;
 
 

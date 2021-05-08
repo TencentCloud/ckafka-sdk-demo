@@ -1,0 +1,17 @@
+.vs
+.DS_Store
+npm-debug.log
+node_modules
+.idea/
+*.log
+dest/
+dist
+.history
+.vscode/
+webpack/webpack-debugger.js
+webpack/webpack.debug.js
+tsbuild
+upload.json
+build
+version.json
+

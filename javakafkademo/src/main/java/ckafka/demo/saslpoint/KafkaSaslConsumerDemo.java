@@ -1,6 +1,6 @@
 package ckafka.demo.saslpoint;
 
-import com.example.demo.ckafka.CKafkaConfigurer;
+import ckafka.demo.CKafkaConfigurer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
