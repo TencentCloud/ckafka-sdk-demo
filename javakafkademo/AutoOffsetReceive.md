@@ -1,6 +1,6 @@
 
 
-## auto.offset.reset=none 使用说明
+## auto.offset.reset 使用说明
 
 #### 什么是auto.offset.reset
 
