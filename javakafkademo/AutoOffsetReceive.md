@@ -6,10 +6,13 @@
 
 该参数规定了当无法取到消费分区的位移时从何处开始消费。
 
-- 当 Broker 端没有 offset（如第一次消费或 offset 超过7天过期）时如何初始化 offset，
-- 当客户端收到 OFFSET_OUT_OF_RANGE 错误时，就根据设置的auto.offset.reset策略去重置Offset。
+当 Broker 端没有 offset（如第一次消费或 offset 超过7天过期）时如何初始化 offset，当收到 OFFSET_OUT_OF_RANGE 错误时，如何重置 Offset。有如下选项：
 
+- earliest：表示自动重置到 partition 的最小 offset
 
+- latest：默认为 latest，表示自动重置到 partition 的最大 offset
+
+- none：不自动进行 offset 重置，抛出 OffsetOutOfRangeException 异常
 
 #### 什么时候会出现OFFSET_OUT_OF_RANGE
 
