@@ -1,6 +1,8 @@
 
 
-## auto.offset.reset 使用说明
+
+
+## auto.offset.reset 最佳实践
 
 #### 什么是auto.offset.reset
 
@@ -25,6 +27,8 @@
 3. 服务端有未同步副本，此时发生了leader切换，触发了follower副本的截断，此时如果客户端提交的offset是在截断的范围之内，也会触发这个错误。
 
 
+
+## auto.offset.reset=none 使用说明
 
 #### 使用背景
 
