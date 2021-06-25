@@ -1,0 +1,9 @@
+{
+    "topic": [
+        "test"
+    ],
+    "bootstrapServers": [
+        "xxx-.ap-changsha-ec.ckafka.tencentcloudmq.com:6000"
+    ],
+    "consumerGroupId": "yourConsumerId"
+}
