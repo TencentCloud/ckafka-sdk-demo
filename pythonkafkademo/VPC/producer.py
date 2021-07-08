@@ -1,6 +1,6 @@
 #coding:utf8
 from kafka import KafkaProducer
-
+import json
 producer = KafkaProducer(
     bootstrap_servers = ['$domainName:$port'],
     api_version = (0, 10, 0))
