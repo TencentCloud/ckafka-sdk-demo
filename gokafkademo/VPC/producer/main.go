@@ -1,7 +1,7 @@
 package main
 import (
     "fmt"
-    "VPC/config"
+    "gokafkademo/config"
     "log"
     "strings"
     "github.com/confluentinc/confluent-kafka-go/kafka"
@@ -31,7 +31,7 @@ func main() {
     defer p.Close()
     // 产生的消息 传递至报告处理程序
     go func() {
-        or e := range p.Events() {
+        for e := range p.Events() {
             switch ev := e.(type) {
             case *kafka.Message:
                 if ev.TopicPartition.Error != nil {
