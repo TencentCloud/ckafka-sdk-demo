@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gongwang/config"
+	"gokafkademo/config"
 	"log"
 	"strings"
 

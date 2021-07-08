@@ -2,7 +2,7 @@ package main
 
 import (
     "fmt"
-    "VPC/config"
+    "gokafkademo/config"
     "log"
     "strings"
 
