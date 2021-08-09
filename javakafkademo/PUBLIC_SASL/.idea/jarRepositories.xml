@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="thirdparty" />
+      <option name="name" value="thirdparty" />
+      <option name="url" value="https://mirrors.tencent.com/repository/maven/thirdparty/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="tencent_public" />
+      <option name="name" value="tencent_public" />
+      <option name="url" value="https://mirrors.tencent.com/repository/maven/tencent_public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="aliyun" />
+      <option name="name" value="Repository for aliyun" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="qcloud-releases" />
+      <option name="name" value="qcloud-releases" />
+      <option name="url" value="http://nexus.qcloud.oa.com/repository/maven-releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nexus" />
+      <option name="name" value="Nexus" />
+      <option name="url" value="http://repo2.maven.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="csig-prod-mid-dev02" />
+      <option name="name" value="csig-prod-mid-dev02" />
+      <option name="url" value="https://mirrors.tencent.com/repository/maven/csig-prod-mid-dev02/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-public" />
+      <option name="name" value="maven-public" />
+      <option name="url" value="https://mirrors.tencent.com/nexus/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="tsf-snapshot" />
+      <option name="name" value="tsf-snapshot" />
+      <option name="url" value="https://mirrors.tencent.com/repository/maven/tsf-snapshot/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="tencnet-mpaas" />
+      <option name="name" value="Repository for mpaas" />
+      <option name="url" value="https://mirrors.tencent.com/repository/maven/mpaas" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="csig-prod-mid-dev02-snapshot" />
+      <option name="name" value="csig-prod-mid-dev02-snapshot" />
+      <option name="url" value="https://mirrors.tencent.com/repository/maven/csig-prod-mid-dev02-snapshot/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="qcloud-snapshots" />
+      <option name="name" value="qcloud-snapshots" />
+      <option name="url" value="http://nexus.qcloud.oa.com/repository/maven-snapshots/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="public" />
+      <option name="name" value="Repository for tencent" />
+      <option name="url" value="https://mirrors.tencent.com/nexus/repository/maven-public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="tsf" />
+      <option name="name" value="tsf" />
+      <option name="url" value="https://mirrors.tencent.com/repository/maven/tsf/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="getui-nexus" />
+      <option name="name" value="getui-nexus" />
+      <option name="url" value="http://mvn.gt.igexin.com/nexus/content/repositories/releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven-oa" />
+      <option name="name" value="maven-oa" />
+      <option name="url" value="http://maven.oa.com/nexus/content/groups/public/" />
+    </remote-repository>
+  </component>
+</project>
