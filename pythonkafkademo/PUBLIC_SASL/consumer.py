@@ -4,7 +4,7 @@ from kafka import KafkaConsumer
 consumer = KafkaConsumer(
     'topic_name',
     group_id = "group_id",
-    bootstrap_servers = ['domainName:port'],
+    bootstrap_servers = ['xx.xx.xx.xx:port'],
     security_protocol = "SASL_PLAINTEXT",
     sasl_mechanism = 'PLAIN',
     sasl_plain_username = "instanceId#username",
