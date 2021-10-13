@@ -25,10 +25,23 @@ public class KafkaSaslProducerDemo {
         //设置接入点，请通过控制台获取对应Topic的接入点。
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
 
-        //接入协议。
+        //
+        //  SASL_PLAINTEXT 公网接入
+        //
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
-        //Plain方式。
+        //  SASL 采用 Plain 方式。
         props.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+
+        //
+        //  SASL_SSL 公网接入
+        //
+        //  接入协议。
+        // props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
+        //  SASL 采用 Plain 方式。
+        // props.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        //  SSL 加密。
+        // props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, kafkaProperties.getProperty(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG));
+        // props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, kafkaProperties.getProperty(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG));
 
         //消息队列Kafka版消息的序列化方式。
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
