@@ -23,7 +23,6 @@ consumer = KafkaConsumer(
     # sasl_plain_username = "instanceId#username",
     # sasl_plain_password = "password",
     # ssl_cafile = "CARoot.pem",
-    # ssl_certfile = "certificate.pem",
     # ssl_check_hostname = False,
 
 )
