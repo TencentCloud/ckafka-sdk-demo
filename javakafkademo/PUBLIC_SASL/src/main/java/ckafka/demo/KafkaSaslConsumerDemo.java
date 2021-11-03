@@ -1,5 +1,9 @@
 package ckafka.demo;
 
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -7,13 +11,10 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import org.apache.kafka.common.config.SslConfigs;
 
 public class KafkaSaslConsumerDemo {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         //设置JAAS配置文件的路径。
         CKafkaConfigurer.configureSaslPlain();
 
@@ -56,10 +57,10 @@ public class KafkaSaslConsumerDemo {
         //属于同一个组的消费实例，会负载消费消息。
         props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getProperty("group.id"));
         //构造消费对象，也即生成一个消费实例。
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         //设置消费组订阅的Topic，可以订阅多个。
         //如果GROUP_ID_CONFIG是一样，则订阅的Topic也建议设置成一样。
-        List<String> subscribedTopics =  new ArrayList<String>();
+        List<String> subscribedTopics = new ArrayList<>();
         //如果需要订阅多个Topic，则在这里添加进去即可。
         //每个Topic需要先在控制台进行创建。
         String topicStr = kafkaProperties.getProperty("topic");
@@ -72,10 +73,10 @@ public class KafkaSaslConsumerDemo {
         //循环消费消息。
         while (true){
             try {
-                ConsumerRecords<String, String> records = consumer.poll(1000);
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
                 //必须在下次Poll之前消费完这些数据, 且总耗时不得超过SESSION_TIMEOUT_MS_CONFIG。
                 for (ConsumerRecord<String, String> record : records) {
-                    System.out.println(String.format("Consume partition:%d offset:%d", record.partition(), record.offset()));
+                    System.out.printf("Consume partition:%d offset:%d%n", record.partition(), record.offset());
                 }
             } catch (Exception e) {
                 System.out.println("consumer error!");
