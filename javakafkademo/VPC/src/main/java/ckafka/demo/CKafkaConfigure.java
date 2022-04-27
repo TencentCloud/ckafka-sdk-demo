@@ -3,7 +3,7 @@ package ckafka.demo;
 import java.util.Properties;
 
 
-public class CKafkaConfigurer {
+public class CKafkaConfigure {
 
     private static Properties properties;
 

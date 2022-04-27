@@ -10,20 +10,17 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.config.SaslConfigs;
-import org.apache.kafka.common.config.SslConfigs;
+import org.apache.kafka.common.security.JaasUtils;
 
 public class CKafkaScramProducerDemo {
 
     public static void main(String[] args) {
-        //设置JAAS配置文件的路径。
-        CKafkaConfigurer.configureSaslPlain();
-
         //加载kafka.properties。
-        Properties kafkaProperties = CKafkaConfigurer.getCKafkaProperties();
-        Properties props = new Properties();
-        //设置接入点，请通过控制台获取对应Topic的接入点。
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
+        Properties kafkaProperties = CKafkaConfigure.getCKafkaProperties();
+        //设置 jaas 配置信息
+        System.setProperty(JaasUtils.JAVA_LOGIN_CONFIG_PARAM, kafkaProperties.getProperty("java.security.auth.login.config"));
 
+        Properties props = new Properties();
         //
         //  SASL_PLAINTEXT 公网接入
         //
@@ -31,6 +28,8 @@ public class CKafkaScramProducerDemo {
         //  SASL 采用 SHA-256 方式。
         props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
 
+        //设置接入点，请通过控制台获取对应Topic的接入点。
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
         //消息队列Kafka版消息的序列化方式。
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");

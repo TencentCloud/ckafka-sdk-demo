@@ -11,14 +11,13 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 
 public class CKafkaProducerDemo {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         //加载kafka.properties。
-        Properties kafkaProperties = CKafkaConfigurer.getCKafkaProperties();
+        Properties kafkaProperties = CKafkaConfigure.getCKafkaProperties();
 
         Properties properties = new Properties();
         //设置接入点，请通过控制台获取对应Topic的接入点。
         properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
-
         //消息队列Kafka版消息的序列化方式, 此处demo 使用的是StringSerializer。
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 "org.apache.kafka.common.serialization.StringSerializer");
@@ -35,18 +34,19 @@ public class CKafkaProducerDemo {
 
         //构造一个消息队列Kafka版消息。
         String topic = kafkaProperties.getProperty("topic"); //消息所属的Topic，请在控制台申请之后，填写在这里。
-        String value = "this is ckafka msg value"; //消息的内容。
+        String value = "this is CKafka msg value"; //消息的内容。
 
         try {
             //批量获取Future对象可以加快速度, 但注意, 批量不要太大。
             List<Future<RecordMetadata>> futureList = new ArrayList<>(128);
             for (int i = 0; i < 10; i++) {
                 //发送消息，并获得一个Future对象。
-                ProducerRecord<String, String> kafkaMsg = new ProducerRecord<>(topic,
-                        value + ": " + i);
+                ProducerRecord<String, String> kafkaMsg = new ProducerRecord<>(
+                        topic,
+                        value + ": " + i
+                );
                 Future<RecordMetadata> metadataFuture = producer.send(kafkaMsg);
                 futureList.add(metadataFuture);
-
             }
             producer.flush();
             for (Future<RecordMetadata> future : futureList) {

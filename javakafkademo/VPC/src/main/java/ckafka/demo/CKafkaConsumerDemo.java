@@ -1,5 +1,6 @@
 package ckafka.demo;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -11,9 +12,9 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 
 public class CKafkaConsumerDemo {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         //加载kafka.properties。
-        Properties kafkaProperties = CKafkaConfigurer.getCKafkaProperties();
+        Properties kafkaProperties = CKafkaConfigure.getCKafkaProperties();
 
         Properties props = new Properties();
         //设置接入点，请通过控制台获取对应Topic的接入点。
@@ -31,6 +32,7 @@ public class CKafkaConsumerDemo {
                 "org.apache.kafka.common.serialization.StringDeserializer");
         //属于同一个组的消费实例，会负载消费消息。
         props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getProperty("group.id"));
+
         //构造消费对象，也即生成一个消费实例。
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         //设置消费组订阅的Topic，可以订阅多个。
@@ -48,7 +50,7 @@ public class CKafkaConsumerDemo {
         //循环消费消息。
         while (true) {
             try {
-                ConsumerRecords<String, String> records = consumer.poll(1000);
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
                 //必须在下次Poll之前消费完这些数据, 且总耗时不得超过SESSION_TIMEOUT_MS_CONFIG。
                 //建议开一个单独的线程池来消费消息，然后异步返回结果。
                 for (ConsumerRecord<String, String> record : records) {
