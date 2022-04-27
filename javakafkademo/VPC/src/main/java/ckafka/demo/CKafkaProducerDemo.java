@@ -1,11 +1,9 @@
-package ckafka.demo.defaultpoint;
+package ckafka.demo;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Future;
-
-import ckafka.demo.CKafkaConfigurer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;

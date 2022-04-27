@@ -1,4 +1,4 @@
-package ckafka.demo.scram;
+package ckafka.demo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +12,14 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
 
-public class KafkaSaslProducerDemo {
+public class CKafkaScramProducerDemo {
 
     public static void main(String[] args) {
         //设置JAAS配置文件的路径。
         CKafkaConfigurer.configureSaslPlain();
 
         //加载kafka.properties。
-        Properties kafkaProperties =  CKafkaConfigurer.getCKafkaProperties();
-
+        Properties kafkaProperties = CKafkaConfigurer.getCKafkaProperties();
         Properties props = new Properties();
         //设置接入点，请通过控制台获取对应Topic的接入点。
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
@@ -51,7 +50,7 @@ public class KafkaSaslProducerDemo {
         try {
             //批量获取Future对象可以加快速度。但注意，批量不要太大。
             List<Future<RecordMetadata>> futures = new ArrayList<>(128);
-            for (int i =0; i < 100; i++) {
+            for (int i = 0; i < 100; i++) {
                 //发送消息，并获得一个Future对象。
                 ProducerRecord<String, String> kafkaMessage = new ProducerRecord<>(topic, value + ": " + i);
                 Future<RecordMetadata> metadataFuture = producer.send(kafkaMessage);
@@ -59,10 +58,10 @@ public class KafkaSaslProducerDemo {
 
             }
             producer.flush();
-            for (Future<RecordMetadata> future: futures) {
+            for (Future<RecordMetadata> future : futures) {
                 //同步获得Future对象的结果。
-                    RecordMetadata recordMetadata = future.get();
-                    System.out.println("Produce ok:" + recordMetadata.toString());
+                RecordMetadata recordMetadata = future.get();
+                System.out.println("Produce ok:" + recordMetadata.toString());
             }
         } catch (Exception e) {
             //客户端内部重试之后，仍然发送失败，业务要应对此类错误。

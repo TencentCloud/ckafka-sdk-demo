@@ -24,7 +24,7 @@ public class CKafkaConfigurer {
         //获取配置文件kafka.properties的内容。
         Properties kafkaProperties = new Properties();
         try {
-            kafkaProperties.load(KafkaSaslProducerDemo.class.getClassLoader().getResourceAsStream("kafka.properties"));
+            kafkaProperties.load(CKafkaSaslProducerDemo.class.getClassLoader().getResourceAsStream("kafka.properties"));
         } catch (Exception e) {
             System.out.println("getCKafkaProperties error");
         }
