@@ -1,4 +1,4 @@
-package ckafka.demo.scram;
+package ckafka.demo;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -13,14 +13,14 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
 import org.apache.kafka.common.config.SslConfigs;
 
-public class KafkaSaslConsumerDemo {
+public class CKafkaSaslConsumerDemo {
+
     public static void main(String[] args) {
         //设置JAAS配置文件的路径。
         CKafkaConfigurer.configureSaslPlain();
 
         //加载kafka.properties。
-        Properties kafkaProperties =  CKafkaConfigurer.getCKafkaProperties();
-
+        Properties kafkaProperties = CKafkaConfigurer.getCKafkaProperties();
         Properties props = new Properties();
         //设置接入点，请通过控制台获取对应Topic的接入点。
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
@@ -29,8 +29,20 @@ public class KafkaSaslConsumerDemo {
         //  SASL_PLAINTEXT 公网接入
         //
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
-        //  SASL 采用 SHA-256 方式。
-        props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
+        //  SASL 采用 Plain 方式。
+        props.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+
+        //
+        //  SASL_SSL 公网接入
+        //
+        //  接入协议。
+        // props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_SSL");
+        //  SASL 采用 Plain 方式。
+        // props.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
+        //  SSL 加密。
+        // props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, kafkaProperties.getProperty(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG));
+        // props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, kafkaProperties.getProperty(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG));
+        // props.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG,kafkaProperties.getProperty(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG));
 
         //两次Poll之间的最大允许间隔。
         //消费者超过该值没有返回心跳，服务端判断消费者处于非存活状态，服务端将消费者从Consumer Group移除并触发Rebalance，默认30s。
@@ -53,18 +65,18 @@ public class KafkaSaslConsumerDemo {
         //每个Topic需要先在控制台进行创建。
         String topicStr = kafkaProperties.getProperty("topic");
         String[] topics = topicStr.split(",");
-        for (String topic: topics) {
+        for (String topic : topics) {
             subscribedTopics.add(topic.trim());
         }
         consumer.subscribe(subscribedTopics);
 
         //循环消费消息。
-        while (true){
+        while (true) {
             try {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(1000));
                 //必须在下次Poll之前消费完这些数据, 且总耗时不得超过SESSION_TIMEOUT_MS_CONFIG。
                 for (ConsumerRecord<String, String> record : records) {
-                    System.out.printf("Consume partition:%d offset:%d%n", record.partition(), record.offset());
+                    System.out.printf("[consumer partition: %d][offset: %d][record: \"%s\"]%n", record.partition(), record.offset(), record.value());
                 }
             } catch (Exception e) {
                 System.out.println("consumer error!");
