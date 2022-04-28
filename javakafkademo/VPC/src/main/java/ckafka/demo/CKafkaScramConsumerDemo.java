@@ -11,20 +11,17 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.config.SaslConfigs;
-import org.apache.kafka.common.config.SslConfigs;
+import org.apache.kafka.common.security.JaasUtils;
 
 public class CKafkaScramConsumerDemo {
 
     public static void main(String[] args) {
-        //设置JAAS配置文件的路径。
-        CKafkaConfigurer.configureSaslPlain();
-
         //加载kafka.properties。
-        Properties kafkaProperties = CKafkaConfigurer.getCKafkaProperties();
-        Properties props = new Properties();
-        //设置接入点，请通过控制台获取对应Topic的接入点。
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
+        Properties kafkaProperties = CKafkaConfigure.getCKafkaProperties();
+        //设置 jaas 配置信息
+        System.setProperty(JaasUtils.JAVA_LOGIN_CONFIG_PARAM, kafkaProperties.getProperty("java.security.auth.login.config"));
 
+        Properties props = new Properties();
         //
         //  SASL_PLAINTEXT 公网接入
         //
@@ -32,6 +29,8 @@ public class CKafkaScramConsumerDemo {
         //  SASL 采用 SHA-256 方式。
         props.put(SaslConfigs.SASL_MECHANISM, "SCRAM-SHA-256");
 
+        //设置接入点，请通过控制台获取对应Topic的接入点。
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
         //两次Poll之间的最大允许间隔。
         //消费者超过该值没有返回心跳，服务端判断消费者处于非存活状态，服务端将消费者从Consumer Group移除并触发Rebalance，默认30s。
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 30000);
@@ -44,6 +43,7 @@ public class CKafkaScramConsumerDemo {
         //当前消费实例所属的消费组，请在控制台申请之后填写。
         //属于同一个组的消费实例，会负载消费消息。
         props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaProperties.getProperty("group.id"));
+
         //构造消费对象，也即生成一个消费实例。
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         //设置消费组订阅的Topic，可以订阅多个。

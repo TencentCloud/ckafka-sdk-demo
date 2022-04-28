@@ -10,27 +10,23 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.config.SaslConfigs;
-import org.apache.kafka.common.config.SslConfigs;
+import org.apache.kafka.common.security.JaasUtils;
 
 public class CKafkaSaslProducerDemo {
 
     public static void main(String[] args) {
-        //设置JAAS配置文件的路径。
-        CKafkaConfigurer.configureSaslPlain();
-
         //加载kafka.properties。
-        Properties kafkaProperties = CKafkaConfigurer.getCKafkaProperties();
-        Properties props = new Properties();
-        //设置接入点，请通过控制台获取对应Topic的接入点。
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
+        Properties kafkaProperties = CKafkaConfigure.getCKafkaProperties();
+        //设置 jaas 配置信息
+        System.setProperty(JaasUtils.JAVA_LOGIN_CONFIG_PARAM, kafkaProperties.getProperty("java.security.auth.login.config"));
 
+        Properties props = new Properties();
         //
         //  SASL_PLAINTEXT 公网接入
         //
         props.put(CommonClientConfigs.SECURITY_PROTOCOL_CONFIG, "SASL_PLAINTEXT");
         //  SASL 采用 Plain 方式。
         props.put(SaslConfigs.SASL_MECHANISM, "PLAIN");
-
         //
         //  SASL_SSL 公网接入
         //
@@ -43,6 +39,8 @@ public class CKafkaSaslProducerDemo {
         // props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, kafkaProperties.getProperty(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG));
         // props.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG,kafkaProperties.getProperty(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG));
 
+        //设置接入点，请通过控制台获取对应Topic的接入点。
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaProperties.getProperty("bootstrap.servers"));
         //消息队列Kafka版消息的序列化方式。
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
@@ -57,8 +55,7 @@ public class CKafkaSaslProducerDemo {
 
         //构造一个消息队列Kafka版消息。
         String topic = kafkaProperties.getProperty("topic"); //消息所属的Topic，请在控制台申请之后，填写在这里。
-        String value = "this is ckafka msg value"; //消息的内容。
-
+        String value = "this is CKafka msg value"; //消息的内容。
         try {
             //批量获取Future对象可以加快速度。但注意，批量不要太大。
             List<Future<RecordMetadata>> futures = new ArrayList<>(128);
